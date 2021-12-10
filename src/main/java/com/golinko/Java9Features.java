@@ -5,18 +5,18 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.time.Duration;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 public class Java9Features {
-    public static void main(String[] args) throws URISyntaxException, IOException, InterruptedException {
-        http();
+    public static void main(String[] args) {
+        httpClient();
         processApi();
         tryCatch();
         diamondOperator();
@@ -24,16 +24,21 @@ public class Java9Features {
         newInterfaces();
     }
 
-    private static void http() throws URISyntaxException, IOException, InterruptedException {
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(new URI("https://postman-echo.com/get"))
-                .GET()
+    public static void httpClient() {
+        HttpClient httpClient = HttpClient.newBuilder()
+                .version(HttpClient.Version.HTTP_2)
+                .connectTimeout(Duration.ofSeconds(20))
                 .build();
-
-        HttpResponse<String> response = HttpClient.newHttpClient()
-                .send(request, HttpResponse.BodyHandlers.ofString());
-
-        System.out.println(response);
+        HttpRequest httpRequest = HttpRequest.newBuilder()
+                .GET()
+                .uri(URI.create("https://postman-echo.com/get"))
+                .build();
+        try {
+            HttpResponse<String> httpResponse = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+            System.out.println(httpResponse.body());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private static void processApi() {
