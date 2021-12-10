@@ -23,6 +23,13 @@ public class Java11Features {
                 .map(String::strip)
                 .collect(Collectors.toList());
         System.out.println(lines.size());
+
+        System.out.println("La ".repeat(10));
+
+        System.out.println("strip: _" + "\n\t  hello   \u2005".strip() + "_");
+        System.out.println("trim: _" + "\n\t  hello   \u2005".trim() + "_");
+        System.out.println(Character.isWhitespace('\u2005'));
+        System.out.println("\n\t\u2005  ".isBlank());
     }
 
     public static void files() {
