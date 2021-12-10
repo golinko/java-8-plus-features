@@ -1,0 +1,12 @@
+<project>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.golinko</groupId>
+    <artifactId>java-8-plus-features</artifactId>
+    <version>1</version>
+
+    <properties>
+        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+    </properties>
+</project>
