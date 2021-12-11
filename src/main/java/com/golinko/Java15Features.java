@@ -21,6 +21,9 @@ public class Java15Features {
             case Employee e -> System.out.printf("employee %s%n", e);
             case Manager m -> System.out.printf("manager %s%n", m);
             case PersonRecord p -> System.out.printf("person record %s%n", p);
+            case BabyBoy ignored -> System.out.println("not recognized as required for switch by compiler");
+            case Baby ignored -> System.out.println("baby");
+            case Boss ignored -> System.out.println("boss");
         };
     }
 
@@ -41,6 +44,9 @@ record Point(int x, int y) {
 
 sealed interface Human permits Person, PersonRecord {}
 record PersonRecord(String name) implements Human {}
-abstract sealed class Person implements Human permits Employee, Manager {}
-final class Employee extends Person {} // should be final or sealed
+abstract sealed class Person implements Human permits Boss, Employee, Manager {}
+non-sealed class Employee extends Person {} // should be final, sealed or non-sealed
 final class Manager extends Person {}
+sealed class Boss extends Person permits Baby {}
+non-sealed class Baby extends Boss {}
+class BabyBoy extends Baby {}
