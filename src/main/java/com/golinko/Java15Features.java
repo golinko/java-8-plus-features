@@ -16,6 +16,7 @@ public class Java15Features {
     }
 
     private static void sealedClasses() {
+        // the switch is the 17 feature, though
         Human person = new PersonRecord("name");
         switch (person) {
             case Employee e -> System.out.printf("employee %s%n", e);
